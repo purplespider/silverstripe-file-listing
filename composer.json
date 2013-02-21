@@ -1,0 +1,14 @@
+{
+	"name": "silverstripe/file-listing",
+	"description": "Basic Download Page functionality, based on an assets directory",
+	"type": "silverstripe-module",
+	"keywords": ["silverstripe", "files", "download"],
+		"authors": [{
+			"name": "James Cocker",
+			"email": "ssmodules@pswd.biz"
+	}],
+	"require": {
+		"silverstripe/framework": "3.*",
+		"silverstripe/cms": "3.*"
+	}
+}

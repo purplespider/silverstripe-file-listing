@@ -1,0 +1,36 @@
+div.filelistings {
+	margin-top: 15px;
+}
+
+div.filelistings h2 {
+	margin-bottom: 10px;
+}
+
+div.filelistings img.icon {
+	margin-right: 5px;
+	vertical-align: bottom;
+	position: relative;
+	top:-2px;
+	border: none;
+}
+
+div.filelistings img.thumb {
+	margin-left: 21px;
+}
+
+div.filelistings p.item {
+	margin-bottom: 5px;
+}
+
+div.filelistings p.item span {
+	color: gray;
+	font-size: 90%;
+}
+
+div.filelistings p.item.back {
+	margin-bottom: 10px;
+}
+
+div.filelistings p.item a.mainlink {
+	font-weight: bold;
+}
