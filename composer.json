@@ -1,5 +1,5 @@
 {
-	"name": "silverstripe/file-listing",
+	"name": "purplespider/file-listing",
 	"description": "Basic Download Page functionality, based on an assets directory",
 	"type": "silverstripe-module",
 	"keywords": ["silverstripe", "files", "download"],
@@ -10,5 +10,6 @@
 	"require": {
 		"silverstripe/framework": "3.*",
 		"silverstripe/cms": "3.*"
-	}
+	},
+	"replace": {"silverstripe/file-listing": "*"}
 }
