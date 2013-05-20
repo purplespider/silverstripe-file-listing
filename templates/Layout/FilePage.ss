@@ -15,7 +15,7 @@ $Content
 				
 					<% control Listing %>	
 						<% if ClassName = Folder %>
-							<p class="item"><a class="mainlink" href="$Top.Link?fid=$ID"><img class="icon" src="/files/images/folder.png"/><strong>$Title</strong></a></p>
+							<p class="item"><a class="mainlink" href="$Top.Link?fid=$ID"><img class="icon" src="/file-listing/images/folder.png"/><strong>$Title</strong></a></p>
 							
 						<% else_if ClassName = Image %>
 							<p class="item"><a class="mainlink" href="$setWidth(850).Link" class="lightbox" rel="gallery1" title="$Title" >
