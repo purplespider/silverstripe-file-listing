@@ -57,7 +57,8 @@ class FilePage_Controller extends Page_Controller {
 	function Listing($ParentID = null) {
 		if(!$this->FolderID) return false;
 		
-		if (isset($_GET['fid'])) {
+		$field = $_GET['fid'];
+		if (isset($field) && is_numeric($field)) {
 			if (DataObject::get("File", "ID = ".$_GET['fid'])) {
 				$ParentID = $_GET['fid'];
 			}
