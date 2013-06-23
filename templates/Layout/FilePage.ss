@@ -13,7 +13,7 @@ $Content
 			
 			<% if Listing %>
 				
-					<% control Listing %>	
+					<% loop Listing %>	
 						<% if ClassName = Folder %>
 							<p class="item"><a class="mainlink" href="$Top.Link?fid=$ID"><img class="icon" src="/file-listing/images/folder.png"/><strong>$Title</strong></a></p>
 							
@@ -30,7 +30,7 @@ $Content
 							<p class="item"><img class="icon" src="/file-listing/images/page_white.png"/><a class="mainlink" href="$Link">$Title ($Extension)</a><span> - Added $Created.Ago</span></p>
 						<% end_if %>
 					
-					<% end_control %>
+					<% end_loop %>
 				
 				
 			<% else %>
