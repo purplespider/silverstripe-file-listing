@@ -57,17 +57,15 @@ class FilePage_Controller extends Page_Controller {
 	function Listing($ParentID = null) {
 		if(!$this->FolderID) return false;
 		
-		if(isset($_GET['fid'])) {
-			$field = $_GET['fid'];
-		}
-			if (isset($field) && is_numeric($field)) {
-				if (DataObject::get("File", "ID = ".$_GET['fid'])) {
-					$ParentID = $_GET['fid'];
-				}
-			} else {
-				$ParentID = $this->FolderID;
-			}
+		$field = filter_var($_GET['fid'], FILTER_VALIDATE_INT, FILTER_NULL_ON_FAILURE);
 		
+		if (isset($field)) {
+			if (DataObject::get("File", "ID = ".$field)) {
+				$ParentID = $field;
+			}
+		} else {
+			$ParentID = $this->FolderID;
+		}
 		
 		if ($ParentID == $this->FolderID) {
 			return DataObject::get("File", "ParentID = ".$ParentID,"Title ASC");
@@ -78,8 +76,10 @@ class FilePage_Controller extends Page_Controller {
 	
 	// Checks if not at the root folder
 	function NotRoot() {
-		if (isset($_GET['fid'])) {
-			if (DataObject::get("File", "ID = ".$_GET['fid'])) {
+		$field = filter_var($_GET['fid'], FILTER_VALIDATE_INT, FILTER_NULL_ON_FAILURE);
+		
+		if (isset($field)) {
+			if (DataObject::get("File", "ID = ".$field)) {
 				return true;
 			}
 		}
@@ -88,8 +88,10 @@ class FilePage_Controller extends Page_Controller {
 	
 	// Gets current folder from $_GET['fid']
 	function CurrentFolder() {
-		if (isset($_GET['fid'])) {
-			return DataObject::get_by_id("File",$_GET['fid']);
+		$field = filter_var($_GET['fid'], FILTER_VALIDATE_INT, FILTER_NULL_ON_FAILURE);
+		
+		if (isset($field)) {
+			return DataObject::get_by_id("File",$field);
 		}
 		return false;
 	}
