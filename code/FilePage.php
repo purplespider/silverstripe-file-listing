@@ -33,7 +33,7 @@ class FilePage extends Page {
 		
 		$folders = Folder::get()->exclude("Filename:PartialMatch", "_versions")->map("ID","Title");
 		$dropdown = new DropdownField("FolderID","Folder",$folders);
-		$dropdown->setEmptyString(" ");
+		$this->FolderID ? $dropdown->setEmptyString("Clear list") : $dropdown->setEmptyString(" ");
 		$fields->addFieldToTab("Root.Main", $dropdown ,"Content");
 				
 		return $fields;
