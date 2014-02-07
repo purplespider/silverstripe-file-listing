@@ -29,12 +29,12 @@ class FilePage extends Page {
 		}
 		
 		$fields->addFieldToTab('Root.Main',
-				new TextField("FilesHeading","Files Heading"),'Metadata');
+				new TextField("FilesHeading","Files Heading"),'Content');
 		
 		$folders = Folder::get()->map("ID","Title");
 		$dropdown = new DropdownField("FolderID","Folder",$folders);
 		$dropdown->setEmptyString(" ");
-		$fields->addFieldToTab("Root.Main", $dropdown ,"Metadata");
+		$fields->addFieldToTab("Root.Main", $dropdown ,"Content");
 				
 		return $fields;
 	}
