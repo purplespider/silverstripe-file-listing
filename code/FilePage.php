@@ -31,7 +31,7 @@ class FilePage extends Page {
 		$fields->addFieldToTab('Root.Main',
 				new TextField("FilesHeading","Files Heading"),'Content');
 		
-		$folders = Folder::get()->map("ID","Title");
+		$folders = Folder::get()->exclude("Filename:PartialMatch", "_versions")->map("ID","Title");
 		$dropdown = new DropdownField("FolderID","Folder",$folders);
 		$dropdown->setEmptyString(" ");
 		$fields->addFieldToTab("Root.Main", $dropdown ,"Content");
@@ -68,9 +68,9 @@ class FilePage_Controller extends Page_Controller {
 		}
 		
 		if ($ParentID == $this->FolderID) {
-			return DataObject::get("File", "ParentID = ".$ParentID,"Title ASC");
+			return DataObject::get("File", "ParentID = ".$ParentID,"Title ASC")->exclude("Filename:PartialMatch", "_versions");
 		} else {
-			return DataObject::get("File", "ParentID = ".$ParentID,"Created DESC");
+			return DataObject::get("File", "ParentID = ".$ParentID,"Created DESC")->exclude("Filename:PartialMatch", "_versions");
 		}
 	}
 	
