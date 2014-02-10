@@ -28,14 +28,13 @@ class FilePage extends Page {
 				new LiteralField("addnew","<p><a href='/admin/assets/show/".$this->FolderID."' class='ss-ui-button ss-ui-action-constructive ui-button' style='font-size:130%' data-icon=add''>Manage Files (".$filescount.")</span></a></p>"),'Title');	
 		}
 		
-		$fields->addFieldToTab('Root.Main',
-				new TextField("FilesHeading","Files Heading"),'Content');
+		$fields->insertAfter(new TextField("FilesHeading","Files Heading"),'Content');
 		
-		$folders = Folder::get()->exclude("Filename:PartialMatch", "_versions")->map("ID","Title");
+		$folders = class_exists('FileVersion') ? Folder::get()->exclude("Filename:PartialMatch", "_versions")->map("ID","Title") : Folder::get()->map("ID","Title");
 		$dropdown = new DropdownField("FolderID","Folder",$folders);
 		$this->FolderID ? $dropdown->setEmptyString("Clear list") : $dropdown->setEmptyString(" ");
-		$fields->addFieldToTab("Root.Main", $dropdown ,"Content");
-				
+		$fields->insertAfter($dropdown,'FilesHeading');
+
 		return $fields;
 	}
 
@@ -68,10 +67,17 @@ class FilePage_Controller extends Page_Controller {
 		}
 		
 		if ($ParentID == $this->FolderID) {
-			return DataObject::get("File", "ParentID = ".$ParentID,"Title ASC")->exclude("Filename:PartialMatch", "_versions");
+			$list = DataObject::get("File", "ParentID = ".$ParentID,"Title ASC");
 		} else {
-			return DataObject::get("File", "ParentID = ".$ParentID,"Created DESC")->exclude("Filename:PartialMatch", "_versions");
+			$list = DataObject::get("File", "ParentID = ".$ParentID,"Created DESC");
 		}
+		
+    if (class_exists('FileVersion')) {
+      return $list->exclude("Filename:PartialMatch", "_versions");
+    } else {
+      return $list;
+    }
+
 	}
 	
 	// Checks if not at the root folder
