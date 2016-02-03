@@ -52,15 +52,27 @@ class FilePage_Controller extends Page_Controller {
       parent::init();  
     }
 	
+	// Gets the current folder ID from query string and validates it
+	public function getCurrentFolderID()
+	{
+		$folderID = $this->request->getVar('fid');
+		
+		if ($folderID) {
+			return filter_var($folderID, FILTER_VALIDATE_INT, FILTER_NULL_ON_FAILURE);
+		} else {
+			return false;
+		}
+	}
+	
 	// Returns files/folders for the current folder
 	function Listing($ParentID = null) {
 		if(!$this->FolderID) return false;
 		
-		if(isset($_GET['fid'])) $field = filter_var($_GET['fid'], FILTER_VALIDATE_INT, FILTER_NULL_ON_FAILURE);
+		$currentFolderID = $this->getCurrentFolderID();
 		
-		if (isset($field)) {
-			if (DataObject::get("File", "ID = ".$field)) {
-				$ParentID = $field;
+		if ($currentFolderID) {
+			if (DataObject::get("File", "ID = ".$currentFolderID)) {
+				$ParentID = $currentFolderID;
 			}
 		} else {
 			$ParentID = $this->FolderID;
@@ -82,10 +94,11 @@ class FilePage_Controller extends Page_Controller {
 	
 	// Checks if not at the root folder
 	function NotRoot() {
-		if(isset($_GET['fid'])) $field = filter_var($_GET['fid'], FILTER_VALIDATE_INT, FILTER_NULL_ON_FAILURE);
 		
-		if (isset($field)) {
-			if (DataObject::get("File", "ID = ".$field)) {
+		$currentFolderID = $this->getCurrentFolderID();
+		
+		if ($currentFolderID) {
+			if (DataObject::get("File", "ID = ".$currentFolderID)) {
 				return true;
 			}
 		}
@@ -94,10 +107,11 @@ class FilePage_Controller extends Page_Controller {
 	
 	// Gets current folder from $_GET['fid']
 	function CurrentFolder() {
-		if(isset($_GET['fid'])) $field = filter_var($_GET['fid'], FILTER_VALIDATE_INT, FILTER_NULL_ON_FAILURE);
 		
-		if (isset($field)) {
-			return DataObject::get_by_id("File",$field);
+		$currentFolderID = $this->getCurrentFolderID();
+		
+		if ($currentFolderID) {
+			return DataObject::get_by_id("File",$currentFolderID);
 		}
 		return false;
 	}
@@ -115,5 +129,3 @@ class FilePage_Controller extends Page_Controller {
 		}
 	}		
 }
-
-?>
