@@ -7,6 +7,9 @@ use SilverStripe\Assets\File;
 use SilverStripe\Forms\LiteralField;
 use SilverStripe\Forms\TextField;
 use SilverStripe\Forms\DropdownField;
+use SilverStripe\Core\Injector\Injector;
+use SilverStripe\Control\Controller;
+use SilverStripe\AssetAdmin\Controller\AssetAdmin;
 use Page;
 
 class FilePage extends Page
@@ -43,11 +46,17 @@ class FilePage extends Page
                 ->filter("ParentID",$this->FolderID)
                 ->count();
             
+            $asset_admin = Injector::inst()->create(AssetAdmin::class);
+            $edit_link = Controller::join_links(
+                $asset_admin->Link("show"),
+                $this->FolderID
+            );
+            
             $fields->addFieldToTab(
                 'Root.Main',
                 LiteralField::create(
                     "addnew",
-                    "<p><a href='/admin/assets/show/".$this->FolderID."' class='ss-ui-button ss-ui-action-constructive ui-button' style='font-size:130%' data-icon=add''>Manage Files (".$filescount.")</span></a></p>"
+                    '<p><a href="' . $edit_link . '" class="btn btn-lg btn-primary">Manage Files (' . $filescount . ')</span></a></p>'
                 ),
                 'Title'
             );
