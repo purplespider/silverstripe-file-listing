@@ -20,5 +20,17 @@
 		"silverstripe/framework": "~4.0",
 		"silverstripe/cms": "~4.0"
 	},
-	"replace": {"silverstripe/file-listing": "*"}
+	"replace": {
+		"silverstripe/file-listing": "*"
+	},
+    "extra": {
+        "expose": [
+            "client/dist"
+        ]
+    },
+    "autoload": {
+        "psr-4": {
+            "PurpleSpider\\SilverStripe\\FileListing\\": "src/"
+        }
+    }
 }
