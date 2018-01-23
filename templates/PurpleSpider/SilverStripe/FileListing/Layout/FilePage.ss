@@ -1,4 +1,5 @@
-<% require css("purplespider/silverstripe-file-listing: client/dist/css/files.css") %>
+<% require css("purplespider/file-listing: client/dist/css/files.css") %>
+<% require javascript("purplespider/file-listing: client/dist/js/fontawesome-all.min.js") %>
 
 <% include SideBar %>
 
@@ -9,41 +10,55 @@
 	</article>
 
 	<div class="filelistings">
-		<% if BackLink %>
+		<% if $BackLink %>
 			<h2>$CurrentFolder.Title</h2>
 			<p class="item back"><a href="$Top.Link{$BackLink}"><strong><img src="file-listing/images/dots.png" class="icon" width="16" height="16" />Back to $CurrentFolder.Parent.Title</strong></a></p>
 		<% else %>
-			<% if FilesHeading %><h2>$FilesHeading</h2><% end_if %>
+			<% if $FilesHeading %><h2>$FilesHeading</h2><% end_if %>
 		<% end_if %>
 		
-		<% if Listing %>
-			<% loop Listing %>	
-				<% if $ClassName = Folder %>
+		<% if $Listing %>
+			<% loop $Listing %>	
+				<% if $ClassName == "SilverStripe\\Assets\\Folder" %>
 					<p class="item">
 						<a class="mainlink" href="$Top.Link?fid=$ID">
-							<img class="icon" src="file-listing/images/folder.png"/>
+							<i class="fas fa-folder-open"></i>
 							<strong>$Title</strong>
 						</a>
 					</p>
-				<% else_if $ClassName = Image %>
+				<% else_if $AppCategory == "image" %>
 					<p class="item">
-						<a class="mainlink" href="$setWidth(850).Link" class="lightbox" rel="gallery1" title="$Title" >
-							<img class="icon" src="file-listing/images/photo.png"/>$Title
+						<a class="mainlink" href="$ScaleWidth(850).Link" class="lightbox" rel="gallery1" title="$Title" >
+							<i class="fas fa-image"></i>
+							$Title
 						</a>
-						<a href="$Link" class="orig">(Download Original)</a>
-						<span> - Added $Created.Ago</span><br />
+						<a href="$Link" class="orig">
+							(Download Original)
+						</a>
+						<span> - Added $Created.Ago</span>
+						<br />
 						<a href="$setWidth(850).Link" class="lightbox" rel="gallery2" title="$Title" >
-							<img class="thumb" src="$setWidth(200).URL" width="$setWidth(200).Width" height="$setWidth(200).Height" />
+							<img class="thumb" src="$ScaleWidth(200).URL" />
 						</a>
 					</p>
-				<% else_if Extension=="zip" || Extension=="ZIP" || Extension=="doc" || Extension=="DOC" || Extension=="DOCX" || Extension=="docx" || Extension=="xls" || Extension=="XLS" || Extension=="xlsx" || Extension=="XLSX" || Extension=="pdf" || Extension=="PDF" %>
+				<% else_if $AppCategory == "archive" %>
 					<p class="item">
-						<a class="mainlink" href="$Link">$Title ($Extension)</a>
+						<a class="mainlink" href="$Link">
+							<i class="fas fa-file-archive"></i>
+							$Title ($Extension)
+						</a>
+						<span> - Added $Created.Ago</span>
+					</p>
+				<% else_if $AppCategory == "document" %>
+					<p class="item">
+						<a class="mainlink" href="$Link">
+							<i class="fas fa-file-alt"></i>
+							$Title ($Extension)
+						</a>
 						<span> - Added $Created.Ago</span>
 					</p>
 				<% else %>
 					<p class="item">
-						<img class="icon" src="file-listing/images/page_white.png"/>
 						<a class="mainlink" href="$Link">$Title ($Extension)</a>
 						<span> - Added $Created.Ago</span>
 					</p>
