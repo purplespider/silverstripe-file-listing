@@ -1,9 +1,13 @@
 {
 	"name": "purplespider/file-listing",
 	"description": "Basic Download Page functionality, based on an assets directory",
-	"type": "silverstripe-module",
+	"type": "silverstripe-vendormodule",
 	"homepage": "https://github.com/purplespider/silverstripe-file-listing",
-	"keywords": ["silverstripe", "files", "download"],
+	"keywords": [
+		"silverstripe",
+		"files",
+		"download"
+	],
 	"license": "BSD-3-Clause",
 	"authors": [{
 		"name": "James Cocker",
@@ -13,8 +17,8 @@
 		"issues": "https://github.com/purplespider/silverstripe-file-listing/issues"
 	},
 	"require": {
-		"silverstripe/framework": "~3.1",
-		"silverstripe/cms": "~3.1"
+		"silverstripe/framework": "~4.0",
+		"silverstripe/cms": "~4.0"
 	},
 	"replace": {"silverstripe/file-listing": "*"}
 }
