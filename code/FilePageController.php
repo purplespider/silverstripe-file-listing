@@ -3,6 +3,7 @@
 namespace PurpleSpider\SilverStripe\FileListing;
 
 use SilverStripe\ORM\DataObject;
+use SilverStripe\Assets\File;
 use PageController;
 
 class FilePageController extends PageController
@@ -37,9 +38,11 @@ class FilePageController extends PageController
         }
         
         $currentFolderID = $this->getCurrentFolderID();
+        $filter = [];
+        $sort = "Created DESC";
         
         if ($currentFolderID) {
-            if (DataObject::get("File", "ID = ".$currentFolderID)) {
+            if (File::get()->byID($currentFolderID)) {
                 $ParentID = $currentFolderID;
             }
         } else {
@@ -47,21 +50,25 @@ class FilePageController extends PageController
         }
         
         if ($ParentID == $this->FolderID) {
-            $list = DataObject::get("File", "ParentID = ".$ParentID, "Title ASC");
-        } else {
-            $list = DataObject::get("File", "ParentID = ".$ParentID, "Created DESC");
+            $sort = "Title ASC";
         }
-        
-        return $list;
+
+        return File::get()
+            ->filter("ParentID", $ParentID)
+            ->sort($sort);
     }
     
-    // Checks if not at the root folder
+    /**
+     * Checks if not at the root folder
+     *
+     * @return boolean
+     */
     public function NotRoot()
     {
         $currentFolderID = $this->getCurrentFolderID();
 			
         if ($currentFolderID) {
-            if (DataObject::get("File", "ID = ".$currentFolderID)) {
+            if (File::get()->byID($currentFolderID)) {
                 return true;
             }
         }
@@ -69,13 +76,17 @@ class FilePageController extends PageController
         return false;
     }
     
-    // Gets current folder from $_GET['fid']
+    /**
+     * Gets current folder from $_GET['fid']
+     *
+     * @return void
+     */
     public function CurrentFolder()
     {
         $currentFolderID = $this->getCurrentFolderID();
 				
         if ($currentFolderID) {
-            return DataObject::get_by_id("File", $currentFolderID);
+            return File::get()->byID($currentFolderID);
         }
 
         return false;
