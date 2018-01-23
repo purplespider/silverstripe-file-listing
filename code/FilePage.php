@@ -23,6 +23,8 @@ class FilePage extends Page
     private static $defaults = [
         "FilesHeading" => "Downloads"
     ];
+
+    private static $table_name = 'FilePage';
     
     private static $description = "Lists files contained within a specific assets folder, for downloading/viewing.";
     
