@@ -64,6 +64,12 @@ checks:
     avoid_closing_tag: true
     assignment_of_null_return: true
     argument_type_checks: true
+  
+build:
+  nodes:
+    analysis:
+      tests:
+        override: [php-scrutinizer-run]
 
 filter:
   paths: [src/*, tests/*]
