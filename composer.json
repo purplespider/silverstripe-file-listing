@@ -17,8 +17,8 @@
 		"issues": "https://github.com/purplespider/silverstripe-file-listing/issues"
 	},
 	"require": {
-		"silverstripe/framework": "~4.0",
-		"silverstripe/cms": "~4.0"
+		"silverstripe/framework": "^4.0",
+		"silverstripe/cms": "^4.0"
 	},
 	"replace": {
 		"silverstripe/file-listing": "*"
