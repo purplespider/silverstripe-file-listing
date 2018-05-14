@@ -1,6 +1,6 @@
 <?php
 
-namespace PurpleSpider\SilverStripe\FileListing;
+namespace PurpleSpider\FileListing;
 
 use SilverStripe\Assets\Folder;
 use SilverStripe\Assets\File;
