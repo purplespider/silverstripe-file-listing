@@ -13,7 +13,7 @@ This module has been designed to have just the minimum required features, to avo
  * James Cocker (ssmodulesgithub@pswd.biz)
  
 ## Requirements
- * Silverstripe 4.0+
+ * Silverstripe 4.4+
  
 ## Installation Instructions
 

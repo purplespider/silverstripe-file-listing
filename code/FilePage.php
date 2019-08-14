@@ -35,7 +35,8 @@ class FilePage extends Page
     
     private static $plural_name = "File Download Pages";
     
-    private static $icon = "file-listing/images/download";
+    private static $icon_class = 'font-icon-p-download';
+
     
     public function getCMSFields()
     {
