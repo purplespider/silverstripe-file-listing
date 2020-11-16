@@ -11,6 +11,7 @@ use SilverStripe\Forms\LiteralField;
 use SilverStripe\Forms\DropdownField;
 use PurpleSpider\FileListing\FilePage;
 use SilverStripe\Core\Injector\Injector;
+use SilverStripe\Forms\TreeDropdownField;
 use SilverStripe\AssetAdmin\Controller\AssetAdmin;
 
 class FilePage extends Page
@@ -65,9 +66,7 @@ class FilePage extends Page
                 'Title'
             );
 
-            $fields->addFieldToTab("Root.Main", DropdownField::create('SortTopLevel', 'Top Level Sort', singleton(FilePage::class)->dbObject('SortTopLevel')->enumValues()),'Metadata');
-            $fields->addFieldToTab("Root.Main", DropdownField::create('SortSubFolders', 'Sub Folder Sort', singleton(FilePage::class)->dbObject('SortSubFolders')->enumValues()),'Metadata');
-        }
+         }
         
         $fields->insertAfter(
             TextField::create(
@@ -77,17 +76,18 @@ class FilePage extends Page
             'Content'
         );
         
-        $folders = Folder::get()
-            ->map("ID", "Title");
-
         $fields->insertAfter(
-            $dropdown = DropdownField::create(
+            $dropdown = TreeDropdownField::create(
                 "FolderID",
                 $this->fieldLabel("Folder"),
-                $folders
+                Folder::class
             ),
             'FilesHeading'
         );
+
+        $fields->insertAfter(DropdownField::create('SortSubFolders', 'Sub Folder Sort', singleton(FilePage::class)->dbObject('SortSubFolders')->enumValues()),'FolderID');
+        $fields->insertAfter(DropdownField::create('SortTopLevel', 'Top Level Sort', singleton(FilePage::class)->dbObject('SortTopLevel')->enumValues()),'FolderID');
+   
         
         if ($this->FolderID) {
             $dropdown->setEmptyString("Clear list");
