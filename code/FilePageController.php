@@ -39,7 +39,7 @@ class FilePageController extends PageController
         
         $currentFolderID = $this->getCurrentFolderID();
         $filter = [];
-        $sort = "Created DESC";
+        $sort = $this->SortSubFolders;
         
         if ($currentFolderID) {
             if (File::get()->byID($currentFolderID)) {
@@ -50,7 +50,7 @@ class FilePageController extends PageController
         }
         
         if ($ParentID == $this->FolderID) {
-            $sort = "Title ASC";
+            $sort = $this->SortTopLevel;
         }
 
         return File::get()

@@ -2,21 +2,24 @@
 
 namespace PurpleSpider\FileListing;
 
-use SilverStripe\Assets\Folder;
-use SilverStripe\Assets\File;
-use SilverStripe\Forms\LiteralField;
-use SilverStripe\Forms\TextField;
-use SilverStripe\Forms\DropdownField;
-use SilverStripe\Core\Injector\Injector;
-use SilverStripe\Control\Controller;
-use SilverStripe\AssetAdmin\Controller\AssetAdmin;
 use Page;
+use SilverStripe\Assets\File;
+use SilverStripe\Assets\Folder;
+use SilverStripe\Forms\TextField;
+use SilverStripe\Control\Controller;
+use SilverStripe\Forms\LiteralField;
+use SilverStripe\Forms\DropdownField;
+use PurpleSpider\FileListing\FilePage;
+use SilverStripe\Core\Injector\Injector;
+use SilverStripe\AssetAdmin\Controller\AssetAdmin;
 
 class FilePage extends Page
 {
         
     private static $db = [
-        "FilesHeading" => "Text"
+        "FilesHeading" => "Text",
+        "SortTopLevel" => "Enum('Title ASC,Title DESC,LastEdited ASC,LastEdited DESC','Title ASC')",
+        "SortSubFolders" => "Enum('Title ASC,Title DESC,LastEdited ASC,LastEdited DESC','Title ASC')",
     ];
     
     private static $has_one = [
@@ -57,10 +60,13 @@ class FilePage extends Page
                 'Root.Main',
                 LiteralField::create(
                     "addnew",
-                    '<p><a href="' . $edit_link . '" class="btn btn-lg btn-primary">Manage Files (' . $filescount . ')</span></a></p>'
+                    '<p><a href="' . $edit_link . '" target="_blank" class="btn btn-lg btn-primary">Manage Files (' . $filescount . ')</span></a></p>'
                 ),
                 'Title'
             );
+
+            $fields->addFieldToTab("Root.Main", DropdownField::create('SortTopLevel', 'Top Level Sort', singleton(FilePage::class)->dbObject('SortTopLevel')->enumValues()),'Metadata');
+            $fields->addFieldToTab("Root.Main", DropdownField::create('SortSubFolders', 'Sub Folder Sort', singleton(FilePage::class)->dbObject('SortSubFolders')->enumValues()),'Metadata');
         }
         
         $fields->insertAfter(
