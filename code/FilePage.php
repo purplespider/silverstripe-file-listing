@@ -19,8 +19,8 @@ class FilePage extends Page
         
     private static $db = [
         "FilesHeading" => "Text",
-        "SortTopLevel" => "Enum('Title ASC,Title DESC,LastEdited ASC,LastEdited DESC','Title ASC')",
-        "SortSubFolders" => "Enum('Title ASC,Title DESC,LastEdited ASC,LastEdited DESC','Title ASC')",
+        "SortTopLevel" => "Enum('Title ASC,Title DESC,Created ASC,Created DESC,LastEdited ASC,LastEdited DESC','Title ASC')",
+        "SortSubFolders" => "Enum('Title ASC,Title DESC,Created ASC,Created DESC,LastEdited ASC,LastEdited DESC','Title ASC')",
     ];
     
     private static $has_one = [
