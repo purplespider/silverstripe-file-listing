@@ -1,22 +1,25 @@
 <?php
 
-namespace PurpleSpider\SilverStripe\FileListing;
+namespace PurpleSpider\FileListing;
 
-use SilverStripe\Assets\Folder;
+use Page;
 use SilverStripe\Assets\File;
-use SilverStripe\Forms\LiteralField;
+use SilverStripe\Assets\Folder;
 use SilverStripe\Forms\TextField;
+use SilverStripe\Control\Controller;
+use SilverStripe\Forms\LiteralField;
 use SilverStripe\Forms\DropdownField;
 use SilverStripe\Core\Injector\Injector;
-use SilverStripe\Control\Controller;
+use SilverStripe\Forms\TreeDropdownField;
 use SilverStripe\AssetAdmin\Controller\AssetAdmin;
-use Page;
 
 class FilePage extends Page
 {
         
     private static $db = [
-        "FilesHeading" => "Text"
+        "FilesHeading" => "Text",
+        "SortTopLevel" => "Enum('Title ASC,Title DESC,Created ASC,Created DESC,LastEdited ASC,LastEdited DESC','Title ASC')",
+        "SortSubFolders" => "Enum('Title ASC,Title DESC,Created ASC,Created DESC,LastEdited ASC,LastEdited DESC','Title ASC')",
     ];
     
     private static $has_one = [
@@ -35,7 +38,8 @@ class FilePage extends Page
     
     private static $plural_name = "File Download Pages";
     
-    private static $icon = "file-listing/images/download";
+    private static $icon_class = 'font-icon-p-download';
+
     
     public function getCMSFields()
     {
@@ -43,7 +47,7 @@ class FilePage extends Page
         
         if ($this->FolderID) {
             $filescount = File::get()
-                ->filter("ParentID",$this->FolderID)
+                ->filter("ParentID", $this->FolderID)
                 ->count();
             
             $asset_admin = Injector::inst()->create(AssetAdmin::class);
@@ -56,10 +60,11 @@ class FilePage extends Page
                 'Root.Main',
                 LiteralField::create(
                     "addnew",
-                    '<p><a href="' . $edit_link . '" class="btn btn-lg btn-primary">Manage Files (' . $filescount . ')</span></a></p>'
+                    '<p><a href="' . $edit_link . '" target="_blank" class="btn btn-lg btn-primary">Manage Files (' . $filescount . ')</span></a></p>'
                 ),
                 'Title'
             );
+
         }
         
         $fields->insertAfter(
@@ -70,17 +75,18 @@ class FilePage extends Page
             'Content'
         );
         
-        $folders = Folder::get()
-            ->map("ID", "Title");
-
         $fields->insertAfter(
-            $dropdown = DropdownField::create(
+            $dropdown = TreeDropdownField::create(
                 "FolderID",
                 $this->fieldLabel("Folder"),
-                $folders
+                Folder::class
             ),
             'FilesHeading'
         );
+
+        $fields->insertAfter(DropdownField::create('SortSubFolders', 'Sub Folder Sort', singleton(FilePage::class)->dbObject('SortSubFolders')->enumValues()), 'FolderID');
+        $fields->insertAfter(DropdownField::create('SortTopLevel', 'Top Level Sort', singleton(FilePage::class)->dbObject('SortTopLevel')->enumValues()), 'FolderID');
+   
         
         if ($this->FolderID) {
             $dropdown->setEmptyString("Clear list");

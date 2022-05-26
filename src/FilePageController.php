@@ -1,6 +1,6 @@
 <?php
 
-namespace PurpleSpider\SilverStripe\FileListing;
+namespace PurpleSpider\FileListing;
 
 use SilverStripe\ORM\DataObject;
 use SilverStripe\Assets\File;
@@ -39,7 +39,7 @@ class FilePageController extends PageController
         
         $currentFolderID = $this->getCurrentFolderID();
         $filter = [];
-        $sort = "Created DESC";
+        $sort = $this->SortSubFolders;
         
         if ($currentFolderID) {
             if (File::get()->byID($currentFolderID)) {
@@ -50,7 +50,7 @@ class FilePageController extends PageController
         }
         
         if ($ParentID == $this->FolderID) {
-            $sort = "Title ASC";
+            $sort = $this->SortTopLevel;
         }
 
         return File::get()
@@ -66,7 +66,7 @@ class FilePageController extends PageController
     public function NotRoot()
     {
         $currentFolderID = $this->getCurrentFolderID();
-			
+            
         if ($currentFolderID) {
             if (File::get()->byID($currentFolderID)) {
                 return true;
@@ -84,7 +84,7 @@ class FilePageController extends PageController
     public function CurrentFolder()
     {
         $currentFolderID = $this->getCurrentFolderID();
-				
+                
         if ($currentFolderID) {
             return File::get()->byID($currentFolderID);
         }
