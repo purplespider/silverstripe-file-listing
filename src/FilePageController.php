@@ -2,7 +2,6 @@
 
 namespace PurpleSpider\FileListing;
 
-use SilverStripe\ORM\DataObject;
 use SilverStripe\Assets\File;
 use PageController;
 
