@@ -47,7 +47,7 @@ class FilePage extends Page
         
         if ($this->FolderID) {
             $filescount = File::get()
-                ->filter("ParentID",$this->FolderID)
+                ->filter("ParentID", $this->FolderID)
                 ->count();
             
             $asset_admin = Injector::inst()->create(AssetAdmin::class);
@@ -65,7 +65,7 @@ class FilePage extends Page
                 'Title'
             );
 
-         }
+        }
         
         $fields->insertAfter(
             TextField::create(
@@ -84,8 +84,8 @@ class FilePage extends Page
             'FilesHeading'
         );
 
-        $fields->insertAfter(DropdownField::create('SortSubFolders', 'Sub Folder Sort', singleton(FilePage::class)->dbObject('SortSubFolders')->enumValues()),'FolderID');
-        $fields->insertAfter(DropdownField::create('SortTopLevel', 'Top Level Sort', singleton(FilePage::class)->dbObject('SortTopLevel')->enumValues()),'FolderID');
+        $fields->insertAfter(DropdownField::create('SortSubFolders', 'Sub Folder Sort', singleton(FilePage::class)->dbObject('SortSubFolders')->enumValues()), 'FolderID');
+        $fields->insertAfter(DropdownField::create('SortTopLevel', 'Top Level Sort', singleton(FilePage::class)->dbObject('SortTopLevel')->enumValues()), 'FolderID');
    
         
         if ($this->FolderID) {

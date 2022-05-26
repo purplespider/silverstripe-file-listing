@@ -66,7 +66,7 @@ class FilePageController extends PageController
     public function NotRoot()
     {
         $currentFolderID = $this->getCurrentFolderID();
-			
+            
         if ($currentFolderID) {
             if (File::get()->byID($currentFolderID)) {
                 return true;
@@ -84,7 +84,7 @@ class FilePageController extends PageController
     public function CurrentFolder()
     {
         $currentFolderID = $this->getCurrentFolderID();
-				
+                
         if ($currentFolderID) {
             return File::get()->byID($currentFolderID);
         }
