@@ -9,7 +9,6 @@ use SilverStripe\Forms\TextField;
 use SilverStripe\Control\Controller;
 use SilverStripe\Forms\LiteralField;
 use SilverStripe\Forms\DropdownField;
-use PurpleSpider\FileListing\FilePage;
 use SilverStripe\Core\Injector\Injector;
 use SilverStripe\Forms\TreeDropdownField;
 use SilverStripe\AssetAdmin\Controller\AssetAdmin;
