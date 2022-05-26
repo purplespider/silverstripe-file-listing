@@ -1,0 +1,3 @@
+mappings:
+  FilePage: PurpleSpider\FileListing\FilePage
+  FilePage_Controller: PurpleSpider\FileListing\FilePageController

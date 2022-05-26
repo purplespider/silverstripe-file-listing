@@ -17,8 +17,8 @@
 		"issues": "https://github.com/purplespider/silverstripe-file-listing/issues"
 	},
 	"require": {
-		"silverstripe/framework": "~4.0",
-		"silverstripe/cms": "~4.0"
+		"silverstripe/framework": "^4.4",
+		"silverstripe/cms": "^4.4"
 	},
 	"replace": {
 		"silverstripe/file-listing": "*"
@@ -30,7 +30,7 @@
     },
     "autoload": {
         "psr-4": {
-            "PurpleSpider\\SilverStripe\\FileListing\\": "src/"
+            "PurpleSpider\\FileListing\\": "code/"
         }
     }
 }
