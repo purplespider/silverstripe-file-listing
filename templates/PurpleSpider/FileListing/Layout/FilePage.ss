@@ -9,7 +9,7 @@
 		<div class="content">$Content</div>
 	</article>
 
-	<div class="filelistings">
+	<div class="filelistings" id="filelisting">
 		<% if $BackLink %>
 			<h2>$CurrentFolder.Title</h2>
 			<p class="item back">
@@ -25,7 +25,7 @@
 		<% if $Listing %>
 			<% loop $Listing %>	
 				<p class="item">
-					<a href="<% if $ClassName == "SilverStripe\\Assets\\Folder" %>$Top.Link?fid=$ID<% else %>$Link<% end_if %>" title="$Title" ><strong>
+					<a href="<% if $ClassName == "SilverStripe\\Assets\\Folder" %>$Top.getFolderLink($ID)<% else %>$Link<% end_if %>" title="$Title" ><strong>
 						<% if $ClassName == "SilverStripe\\Assets\\Folder" %>
 							<i class="fas fa-folder-open fa-2x"></i>
 						<% else_if $AppCategory == "image" %>

@@ -97,9 +97,9 @@ class FilePageController extends PageController
     {
         if ($this->CurrentFolder()) {
             if ($this->CurrentFolder()->ParentID != $this->FolderID) {
-                return "?fid=".$this->CurrentFolder()->ParentID;
+                return "#filelisting?fid=".$this->CurrentFolder()->ParentID;
             } else {
-                return "?";
+                return "#filelisting";
             }
         } else {
             return false;

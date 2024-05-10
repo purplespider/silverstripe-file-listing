@@ -97,4 +97,8 @@ class FilePage extends Page
 
         return $fields;
     }
+
+    function getFolderLink($ID = null) {
+        return $this->Link('?fid='.$ID);
+    }
 }
