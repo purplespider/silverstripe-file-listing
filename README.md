@@ -13,10 +13,8 @@ This module has been designed to have just the minimum required features, to avo
  * James Cocker (ssmodulesgithub@pswd.biz)
  
 ## Requirements
- * Silverstripe 4.4+
- 
-(For Silverstripe 3.* support, use `^1.0`)
- 
+ * Silverstripe 5
+  
 ## Installation Instructions
 
 1. Run `composer require purplespider/file-listing ^2.0` to install the module
