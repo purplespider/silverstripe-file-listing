@@ -69,24 +69,24 @@ class FilePage extends Page
          }
         
         $fields->insertAfter(
+            'Content',
             TextField::create(
                 "FilesHeading",
                 "Files Heading"
-            ),
-            'Content'
+            )
         );
         
         $fields->insertAfter(
+            'FilesHeading',
             $dropdown = TreeDropdownField::create(
                 "FolderID",
                 $this->fieldLabel("Folder"),
                 Folder::class
-            ),
-            'FilesHeading'
+            )
         );
 
-        $fields->insertAfter(DropdownField::create('SortSubFolders', 'Sub Folder Sort', singleton(FilePage::class)->dbObject('SortSubFolders')->enumValues()),'FolderID');
-        $fields->insertAfter(DropdownField::create('SortTopLevel', 'Top Level Sort', singleton(FilePage::class)->dbObject('SortTopLevel')->enumValues()),'FolderID');
+        $fields->insertAfter('FolderID', DropdownField::create('SortSubFolders', 'Sub Folder Sort', singleton(FilePage::class)->dbObject('SortSubFolders')->enumValues()));
+        $fields->insertAfter('FolderID', DropdownField::create('SortTopLevel', 'Top Level Sort', singleton(FilePage::class)->dbObject('SortTopLevel')->enumValues()));
    
         
         if ($this->FolderID) {
