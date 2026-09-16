@@ -39,9 +39,22 @@ class FilePage extends Page
     
     private static $plural_name = "File Download Pages";
     
-    private static $icon_class = 'font-icon-p-download';
+    private static $cms_icon_class = 'font-icon-p-download';
 
-    
+    /**
+     * These fields are added manually in getCMSFields(),
+     * so prevent SS6 auto-scaffolding from adding duplicates.
+     */
+    private static $scaffold_cms_fields_settings = [
+        'ignoreFields' => [
+            'FilesHeading',
+            'SortTopLevel',
+            'SortSubFolders',
+            'FolderID',
+        ],
+    ];
+
+
     public function getCMSFields()
     {
         $fields = parent::getCMSFields();
