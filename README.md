@@ -17,7 +17,7 @@ This module has been designed to have just the minimum required features, to avo
   
 ## Installation Instructions
 
-1. Run `composer require purplespider/file-listing ^3.0` to install the module
+1. Run `composer require purplespider/file-listing ^4.0` to install the module
 2. Visit /dev/build to rebuild the database.
 3. Log in the CMS, and create a new *File Download Page* page.
 
